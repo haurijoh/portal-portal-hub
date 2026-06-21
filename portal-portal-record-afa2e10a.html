@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mk体育 · 再次相遇的页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fafaf9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+            color: #1e1e1e;
+            line-height: 1.7;
+            padding: 2.4rem 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page {
+            max-width: 700px;
+            width: 100%;
+        }
+
+        /* 主视觉区 – 温和留白 + 轻微叠影 */
+        .hero {
+            margin-bottom: 3.6rem;
+            padding: 2.2rem 1.8rem 2.8rem;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.02);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            color: #111;
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+
+        .hero .sub {
+            font-size: 1.05rem;
+            color: #5b5b5b;
+            max-width: 480px;
+            margin: 0 auto 1.6rem;
+        }
+
+        .hero .muted-tag {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.25rem 1rem;
+            background: #f0efed;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            color: #555;
+            letter-spacing: 0.3px;
+        }
+
+        /* 信息卡片通用 */
+        .card-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin: 2.8rem 0;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 1.8rem 2rem 2rem;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+            transition: box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.04);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            font-weight: 480;
+            margin-bottom: 1rem;
+            color: #1f1f1f;
+            letter-spacing: -0.3px;
+        }
+
+        .card p, .card li {
+            font-size: 1rem;
+            color: #3a3a3a;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card li {
+            padding: 0.35rem 0 0.35rem 1.8rem;
+            position: relative;
+        }
+
+        .card li::before {
+            content: "·";
+            position: absolute;
+            left: 0.2rem;
+            color: #b0a99f;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        /* 自然链接段落 – 嵌入在文字流里 */
+        .link-paragraph {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 1.6rem 2rem 1.8rem;
+            margin: 2rem 0;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .link-paragraph a {
+            color: #1e3a5f;
+            text-decoration: none;
+            border-bottom: 1px solid #cdd7e3;
+            transition: border-color 0.15s;
+            font-weight: 450;
+        }
+
+        .link-paragraph a:hover {
+            border-bottom-color: #1e3a5f;
+        }
+
+        .link-paragraph .light-note {
+            display: block;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #6b6b6b;
+        }
+
+        .faq-mini {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 1.6rem 2rem 1.8rem;
+            margin: 2rem 0;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .faq-mini h3 {
+            font-size: 1.1rem;
+            font-weight: 480;
+            margin-bottom: 0.8rem;
+            color: #222;
+        }
+
+        .faq-mini dt {
+            font-weight: 470;
+            margin: 1rem 0 0.2rem;
+            color: #2c2c2c;
+        }
+
+        .faq-mini dd {
+            margin-left: 0;
+            color: #4a4a4a;
+            font-size: 0.95rem;
+        }
+
+        /* 收藏提示区 */
+        .bookmark-note {
+            margin: 2.4rem 0 1.8rem;
+            padding: 1.5rem 2rem;
+            border-radius: 60px;
+            background: #f1f0ed;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #404040;
+        }
+
+        .bookmark-note span {
+            display: inline-block;
+            background: #e3e0da;
+            padding: 0.1rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: #2f2f2f;
+        }
+
+        .footer-note {
+            margin-top: 3.5rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid #e5e3df;
+            font-size: 0.8rem;
+            color: #7b7b7b;
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 480px) {
+            body {
+                padding: 1.5rem 1rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .card, .link-paragraph, .faq-mini {
+                padding: 1.4rem 1.4rem 1.6rem;
+            }
+            .hero {
+                padding: 1.6rem 1.2rem 2rem;
+            }
+            .bookmark-note {
+                padding: 1.2rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- 主视觉 hero -->
+    <div class="hero">
+        <h1>mk体育</h1>
+        <div class="sub">一个值得再次打开的地方<br>收藏、回访，让熟悉的内容留在手边</div>
+        <div class="muted-tag">· 持续关注 · 自然节奏</div>
+    </div>
+
+    <!-- 信息卡片：用途与场景 -->
+    <div class="card-grid">
+        <div class="card">
+            <h2>日常浏览的几种方式</h2>
+            <ul>
+                <li>想快速找到之前看过的赛事动态</li>
+                <li>习惯在固定页面获取更新，而非反复搜索</li>
+                <li>把常用链接留在收藏夹，随时可以回来</li>
+                <li>页面简洁，没有冗余干扰，适合专心浏览</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>适合什么样的人</h2>
+            <ul>
+                <li>偶尔关注体育资讯，不希望被推送打扰</li>
+                <li>偏好干净、直接的信息呈现方式</li>
+                <li>希望一个页面就能满足多数查阅需求</li>
+                <li>重视再次访问的便捷度，不依赖临时搜索</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 自然链接段落 – 把链接融入句子，不用“进入、点击”等词 -->
+    <div class="link-paragraph">
+        <p>
+            如果你之前访问过 <a href="https://portal-portal-mksport.com">mk体育</a>，
+            或许会发现它的页面结构一直保持得比较稳定。
+            这种稳定带来的好处是：每次回来都能快速定位到自己关注的内容，
+            不需要重新适应布局。对于习惯收藏书签的人来说，这种连贯性很难得。
+        </p>
+        <p class="light-note">
+            有时只是顺手点开书签，看看有没有新内容——就像翻开一本常读的杂志。
+        </p>
+    </div>
+
+    <!-- 再次访问 & 收藏提示 -->
+    <div class="bookmark-note">
+        <span>⋮</span> 把 <strong>mk体育</strong> 加入浏览器书签，下次回来只需一次点击。
+    </div>
+
+    <!-- 轻量 FAQ 摘要 -->
+    <div class="faq-mini">
+        <h3>常见想法 · 简短回应</h3>
+        <dl>
+            <dt>— 为什么推荐再次访问？</dt>
+            <dd>因为熟悉的环境能减少寻找成本，尤其当你已经知道内容大致在哪里。</dd>
+            <dt>— 页面会有大变化吗？</dt>
+            <dd>通常以微调为主，保持一致的阅读节奏，不会频繁改版。</dd>
+            <dt>— 适合长期关注吗？</dt>
+            <dd>如果它的呈现方式符合你的习惯，那把它留在收藏夹里是件很自然的事。</dd>
+        </dl>
+    </div>
+
+    <!-- 再次出现的自然链接（满足至少一个链接要求，但文本仍是“mk体育”） 
+         这里用不同句子再嵌入一次，不重复之前的句式 -->
+    <div style="margin: 1.8rem 0 1.2rem; font-size: 0.95rem; color: #4f4f4f; background: #ffffff; border-radius: 28px; padding: 1.2rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.02);">
+        <p>
+            一些朋友会把 <a href="https://portal-portal-mksport.com">mk体育</a> 
+            设为浏览器的常驻标签页，这样每次打开浏览器就能直接看到。
+            这种做法算不上复杂，却能省去不少重复输入网址的步骤。
+        </p>
+    </div>
+
+    <!-- 结尾 -->
+    <div class="footer-note">
+        页面仅作介绍 · 保持简洁与真实
+    </div>
+
+</div>
+</body>
+</html>
