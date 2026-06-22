@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>雷速 · 信息聚合与快速识别</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(145deg, #fce4b8 0%, #f7d9a8 45%, #f2cd99 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem 1.2rem;
+    }
+
+    .page-wrapper {
+      max-width: 1200px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.2rem;
+    }
+
+    /* 主视觉卡片 —— 暖色渐变玻璃质感 */
+    .hero-card {
+      background: rgba(255, 252, 240, 0.92);
+      backdrop-filter: blur(6px);
+      border-radius: 48px 20px 48px 20px;
+      box-shadow: 0 20px 40px -12px rgba(160, 100, 40, 0.30), 0 8px 16px rgba(0,0,0,0.04);
+      padding: 2.8rem 2.5rem;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      transition: all 0.25s ease;
+    }
+
+    .hero-card h1 {
+      font-size: 3rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #54371a;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-card .sub {
+      font-size: 1.25rem;
+      color: #7a5b36;
+      max-width: 40rem;
+      margin: 0 auto 1.4rem;
+      line-height: 1.6;
+    }
+
+    .hero-tagline {
+      display: inline-block;
+      background: #f0d5a8;
+      padding: 0.3rem 1.6rem;
+      border-radius: 40px;
+      font-weight: 500;
+      color: #432f17;
+      font-size: 0.95rem;
+      box-shadow: inset 0 1px 3px rgba(255,255,200,0.6);
+    }
+
+    /* 信息卡片网格 */
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+      width: 100%;
+    }
+
+    .info-card {
+      background: #fffcf3;
+      border-radius: 28px;
+      padding: 2rem 1.8rem 1.8rem;
+      box-shadow: 0 12px 28px -8px rgba(130, 80, 30, 0.18);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ffeecd;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 36px -10px rgba(140, 90, 30, 0.25);
+    }
+
+    .info-card .emoji-badge {
+      font-size: 2.2rem;
+      margin-bottom: 0.6rem;
+      background: #faeacb;
+      width: 3.4rem;
+      height: 3.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 30px;
+    }
+
+    .info-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #4a331b;
+      margin-bottom: 0.7rem;
+      letter-spacing: -0.01em;
+    }
+
+    .info-card p, .info-card ul {
+      color: #4a3a28;
+      line-height: 1.6;
+      font-size: 0.98rem;
+    }
+
+    .info-card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .info-card ul li {
+      padding: 0.25rem 0 0.25rem 1.2rem;
+      position: relative;
+    }
+
+    .info-card ul li::before {
+      content: "·";
+      color: #b67f44;
+      font-weight: 700;
+      position: absolute;
+      left: 0;
+    }
+
+    /* 自然链接段落卡片 */
+    .link-paragraph {
+      background: #fffcf3;
+      border-radius: 28px;
+      padding: 2rem 2.2rem;
+      width: 100%;
+      box-shadow: 0 12px 28px -8px rgba(130, 80, 30, 0.18);
+      border: 1px solid #ffeecd;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #3d2e1c;
+    }
+
+    .link-paragraph a {
+      color: #865d2f;
+      background: #f7e8d0;
+      padding: 0.1rem 0.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .link-paragraph a:hover {
+      background: #ebd2ae;
+      color: #3e2a12;
+      border-color: #ccaa7c;
+    }
+
+    .faq-mini {
+      background: #fffcf3;
+      border-radius: 28px;
+      padding: 1.6rem 2rem 2rem;
+      width: 100%;
+      box-shadow: 0 12px 28px -8px rgba(130, 80, 30, 0.18);
+      border: 1px solid #ffeecd;
+    }
+
+    .faq-mini h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #4a331b;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .faq-mini details {
+      border-bottom: 1px solid #eedcc0;
+      padding: 0.6rem 0;
+    }
+
+    .faq-mini details:last-of-type {
+      border-bottom: none;
+    }
+
+    .faq-mini summary {
+      font-weight: 500;
+      color: #573f25;
+      cursor: pointer;
+      padding: 0.3rem 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .faq-mini summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-mini summary::before {
+      content: "▸";
+      margin-right: 0.6rem;
+      color: #b67f44;
+      transition: transform 0.2s;
+    }
+
+    .faq-mini details[open] summary::before {
+      transform: rotate(90deg);
+    }
+
+    .faq-mini .answer {
+      padding: 0.5rem 0 0.2rem 1.6rem;
+      color: #4a3a28;
+      font-size: 0.93rem;
+      line-height: 1.6;
+    }
+
+    /* 响应式细节 */
+    @media (max-width: 640px) {
+      body {
+        padding: 1rem 0.8rem;
+      }
+      .hero-card {
+        padding: 1.8rem 1.2rem;
+        border-radius: 36px 12px 36px 12px;
+      }
+      .hero-card h1 {
+        font-size: 2.2rem;
+      }
+      .hero-card .sub {
+        font-size: 1rem;
+      }
+      .grid-cards {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+      .link-paragraph, .faq-mini {
+        padding: 1.4rem 1.2rem;
+      }
+      .info-card {
+        padding: 1.5rem 1.2rem;
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .grid-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* 底部静默 */
+    .foot-note {
+      font-size: 0.75rem;
+      color: #7a623e;
+      opacity: 0.7;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- 主视觉 -->
+  <div class="hero-card">
+    <h1>🟡 雷速</h1>
+    <div class="sub">一个面向信息检索者的轻量聚合界面 —— 跳过噪声，快速判断资源是否匹配你的需求。</div>
+    <div class="hero-tagline">🔍 识别 · 分类 · 直达</div>
+  </div>
+
+  <!-- 用途卡片 + 适合人群 (两列卡片) -->
+  <div class="grid-cards">
+    <div class="info-card">
+      <div class="emoji-badge">🧭</div>
+      <h3>用途速览</h3>
+      <p>当你发现一个新工具或站点，第一反应往往是：它解决什么问题？<br><strong>雷速</strong> 并非一个复杂平台，而是聚焦于“快速识别”的入口层——通过结构化的信息卡片、场景说明和归纳，帮助你在几十秒内判断是否与你的方向有关。</p>
+      <p style="margin-top: 0.6rem;">无论是验证一个想法、查找某个功能的背景，还是评估信息源，这里都提供一种克制的预览方式。</p>
+    </div>
+
+    <div class="info-card">
+      <div class="emoji-badge">👥</div>
+      <h3>适合人群</h3>
+      <ul>
+        <li>经常接触新信息源、需要快速判断相关性的研究者</li>
+        <li>希望绕过冗长介绍，直接获取功能轮廓的产品/运营人员</li>
+        <li>对聚合类工具保持好奇，但厌恶夸大口吻的普通用户</li>
+        <li>任何想要在碎片时间里做信息初筛的人</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 自然链接段落 (嵌入 a 标签，文本“雷速”，不含点击/进入等) -->
+  <div class="link-paragraph">
+    <p>如果你已经开始考虑信息聚合与识别效率，那么不妨将 <a href="https://portal-china-leisu.com">雷速</a> 当作一个轻量起点。它没有复杂的仪表盘，也没有冗长的 onboarding —— 提供的是一组经过整理的卡片式摘要以及可跳转的上下文。许多用户在第一次接触时反馈：相较于滚动整屏介绍，这种结构化预览更符合“先判断，再深入”的习惯。在日常工作流中，可以把 <a href="https://portal-china-leisu.com">雷速</a> 当作信息识别的辅助节点，而非必须驻留的终点。</p>
+  </div>
+
+  <!-- FAQ 摘要卡片 (承接上文，更多是从“信息判断”角度补充) -->
+  <div class="faq-mini">
+    <h4>❓ 常见疑问摘要</h4>
+    <details>
+      <summary>雷速 与其他聚合页面有什么不同？</summary>
+      <div class="answer">侧重点在于“前置识别”——不是提供海量链接，而是帮助你在短时间内理解一个资源的核心定位。卡片布局与分类标签都是为了降低认知负担。</div>
+    </details>
+    <details>
+      <summary>我需要注册或登录才能使用吗？</summary>
+      <div class="answer">不需要。当前阶段 <a href="https://portal-china-leisu.com" style="background:transparent; padding:0; border:none; color:#865d2f; text-decoration:underline;">雷速</a> 的展示层是开放的，直接访问即可浏览信息卡片与分类提示。部分外部资源可能需要各自独立授权。</div>
+    </details>
+    <details>
+      <summary>页面会频繁更新内容吗？</summary>
+      <div class="answer">内容会随资源变化做适度调整，但核心保持简洁。你可以把它当作一个相对稳定的参考页，不会出现每日刷新的信息流。</div>
+    </details>
+  </div>
+
+  <div class="foot-note">基于信息识别 · 暖色卡片 · 中性描述</div>
+</div>
+</body>
+</html>
